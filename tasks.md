@@ -1,13 +1,15 @@
 # Expense Tracker — Tasks
 
 ## Fase 1: Project Setup
-- [ ] **1.1** Scaffold project via `npm create vite@latest` (Vue 3 + TypeScript), installeer dependencies
-- [ ] **1.2** Configureer ESLint + Prettier, voeg `.editorconfig` toe
-- [ ] **1.3** Maak mapstructuur aan: `src/types`, `src/composables`, `src/components`
-- [ ] **1.4** Verwijder Vite boilerplate, maak lege `App.vue` die straks alleen `ExpenseTracker.vue` rendert
-- [ ] **1.5** Installeer Vitest + `@vue/test-utils` + `jsdom`, maak `vitest.config.ts`, voeg `test`-script toe aan `package.json`
+- [x] **1.1** Scaffold project in submap `app/` via `npm create vite@latest app --template vue-ts`, daarna `cd app && npm install`
+- [x] **1.2** Configureer ESLint + Prettier in `app/`, voeg `.editorconfig` toe
+- [x] **1.3** Maak mapstructuur aan: `app/src/types`, `app/src/composables`, `app/src/components`
+- [x] **1.4** Verwijder Vite boilerplate in `app/src/`, maak lege `App.vue` die straks alleen `ExpenseTracker.vue` rendert
+- [x] **1.5** Installeer Vitest + `@vue/test-utils` + `jsdom` in `app/`, maak `vitest.config.ts`, voeg `test`-script toe aan `app/package.json`
 
-> Testbaar: `npm run dev` start zonder errors, `npm run test` draait zonder fouten, linting geeft geen fouten
+- [ ] **1.6** Voeg `.gitkeep` toe aan lege mappen (`src/types`, `src/composables`, `src/components`), controleer `.gitignore` (node_modules, dist uitgesloten), commit alle Fase 1 wijzigingen en push naar GitHub
+
+> Testbaar: `npm run dev` start zonder errors vanuit `app/`, `npm run test` draait zonder fouten, linting geeft geen fouten, lege mappen zichtbaar op GitHub
 
 ---
 

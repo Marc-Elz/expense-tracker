@@ -21,21 +21,29 @@ Single-page app to log, categorize, filter, sort, and summarize personal expense
 
 **Folder structuur**
 ```
-src/
-├── types/index.ts
-├── composables/
-│   ├── useExpenses.ts    — CRUD + localStorage sync (source of truth)
-│   ├── useFilters.ts     — filter/sort state + gefilterde computed
-│   └── useExpenseForm.ts — form state, validatie, submit handler
-├── components/
-│   ├── SummaryDashboard.vue  — props: total, categoryTotals
-│   ├── FilterBar.vue         — props: filters — emits: update:filters
-│   ├── ExpenseList.vue       — props: expenses — emits: edit, delete
-│   ├── ExpenseItem.vue       — props: expense — emits: edit, delete
-│   ├── ExpenseForm.vue       — props: expense? — emits: submit, cancel
-│   └── ConfirmModal.vue      — props: open, message — emits: confirm, cancel
-├── ExpenseTracker.vue    ← orchestrator: gebruikt composables, geeft props door
-└── App.vue               — importeert alleen ExpenseTracker.vue
+expense-tracker/
+├── context.md
+├── tasks.md
+└── app/                      ← Vite project root (npm commando's hier uitvoeren)
+    ├── index.html
+    ├── package.json
+    ├── vite.config.ts
+    ├── tsconfig*.json
+    └── src/
+        ├── types/index.ts
+        ├── composables/
+        │   ├── useExpenses.ts    — CRUD + localStorage sync (source of truth)
+        │   ├── useFilters.ts     — filter/sort state + gefilterde computed
+        │   └── useExpenseForm.ts — form state, validatie, submit handler
+        ├── components/
+        │   ├── SummaryDashboard.vue  — props: total, categoryTotals
+        │   ├── FilterBar.vue         — props: filters — emits: update:filters
+        │   ├── ExpenseList.vue       — props: expenses — emits: edit, delete
+        │   ├── ExpenseItem.vue       — props: expense — emits: edit, delete
+        │   ├── ExpenseForm.vue       — props: expense? — emits: submit, cancel
+        │   └── ConfirmModal.vue      — props: open, message — emits: confirm, cancel
+        ├── ExpenseTracker.vue    ← orchestrator: gebruikt composables, geeft props door
+        └── App.vue               — importeert alleen ExpenseTracker.vue
 ```
 
 **Regel:** alleen `ExpenseTracker.vue` gebruikt composables — overige components zijn dumb (props in, emits uit).
