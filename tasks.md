@@ -7,7 +7,7 @@
 - [x] **1.4** Verwijder Vite boilerplate in `app/src/`, maak lege `App.vue` die straks alleen `ExpenseTracker.vue` rendert
 - [x] **1.5** Installeer Vitest + `@vue/test-utils` + `jsdom` in `app/`, maak `vitest.config.ts`, voeg `test`-script toe aan `app/package.json`
 
-- [ ] **1.6** Voeg `.gitkeep` toe aan lege mappen (`src/types`, `src/composables`, `src/components`), controleer `.gitignore` (node_modules, dist uitgesloten), commit alle Fase 1 wijzigingen en push naar GitHub
+- [x] **1.6** Voeg `.gitkeep` toe aan lege mappen (`src/types`, `src/composables`, `src/components`), controleer `.gitignore` (node_modules, dist uitgesloten), commit alle Fase 1 wijzigingen en push naar GitHub
 
 > Testbaar: `npm run dev` start zonder errors vanuit `app/`, `npm run test` draait zonder fouten, linting geeft geen fouten, lege mappen zichtbaar op GitHub
 
