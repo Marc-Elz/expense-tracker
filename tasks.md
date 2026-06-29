@@ -79,6 +79,7 @@
 - [ ] **6.4** Stel standaard filter in op `All` en standaard sort op datum descending (in `useFilters`)
 - [ ] **6.5** Voeg basis CSS toe (layout, form styling, tabel, modal overlay)
 - [x] **6.6** Vervang de `<select multiple>` in `FilterBar` door de chip-UI: een dropdown om een categorie toe te voegen, actieve categorieën getoond als chips met ×-knop
+- [ ] **6.7** Stijl de categorie-chips in `FilterBar.vue`: chip als pill (afgeronde achtergrond, subtiele kleur), ×-knop als klein, subtiel icoontje dat oplicht bij hover — geen externe libraries
 
 > Testbaar: bedragen correct geformatteerd, standaardwaarden correct bij eerste load, UI bruikbaar op 1280px breedte, meerdere categorieën selecteerbaar en verwijderbaar via chips
 
