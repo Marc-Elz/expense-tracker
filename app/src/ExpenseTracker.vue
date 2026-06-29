@@ -4,6 +4,8 @@
     <ExpenseForm
       :key="formKey"
       :expense="editingExpense"
+      :errors="errors"
+      :on-blur="handleBlur"
       @submit="handleFormSubmit"
       @cancel="handleCancel"
     />
@@ -32,7 +34,7 @@ import SummaryDashboard from './components/SummaryDashboard.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
 
 const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses()
-const { editingId, resetForm, populateForm } = useExpenseForm()
+const { form, editingId, errors, validateField, resetForm, populateForm } = useExpenseForm()
 const { filters, filteredExpenses } = useFilters()
 
 const editingExpense = computed(() =>
@@ -55,6 +57,11 @@ const categoryTotals = computed(
       ]),
     ) as Record<Category, number>,
 )
+
+function handleBlur(field: 'description' | 'amount' | 'category' | 'date', value: string | number | null) {
+  form.value[field] = value as never
+  validateField(field)
+}
 
 function handleEdit(expense: Expense) {
   populateForm(expense)

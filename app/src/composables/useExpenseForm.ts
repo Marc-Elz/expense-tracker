@@ -8,7 +8,9 @@ interface ExpenseFormState {
   date: string
 }
 
-type FormErrors = Record<keyof ExpenseFormState, string>
+export type FormField = keyof ExpenseFormState
+export type FormErrors = Record<FormField, string>
+export type OnBlurFn = (field: FormField, value: string | number | null) => void
 
 const VALID_CATEGORIES: Category[] = ['Food', 'Transport', 'Entertainment', 'Other']
 

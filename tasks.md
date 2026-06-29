@@ -60,8 +60,9 @@
 
 ## Fase 5: Validatie & Edge Cases
 
-- [ ] **5.1** Voeg inline validatie toe aan `useExpenseForm`: errors per veld, valideer op blur + submit
-- [ ] **5.2** Toon foutmeldingen onder elk veld in `ExpenseForm.vue` via `errors` prop
+- [x] **5.1** Voeg inline validatie toe aan `useExpenseForm`: errors per veld, valideer op blur + submit
+- [x] **5.2** Toon foutmeldingen onder elk veld in `ExpenseForm.vue` via `errors` prop
+- [x] **5.2b** Koppel `useExpenseForm` aan `ExpenseForm` in `ExpenseTracker`: geef `errors` door als prop, `handleBlur(field, value)` als `onBlur`-callback (synct `form.value[field]` en roept `validateField` aan)
 - [ ] **5.3** Disable Save-knop als form invalid of (in edit mode) ongewijzigd — via `disabled` prop
 - [ ] **5.4** Toon toast-foutmelding bij localStorage schrijffout (gewone fout én `QuotaExceededError`)
 - [ ] **5.5** Toon lege staat in `ExpenseList` met call-to-action als `expenses` prop leeg is

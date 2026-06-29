@@ -55,7 +55,8 @@ expense-tracker/
 ### Architectuur
 - Alleen `ExpenseTracker.vue` gebruikt composables — overige components zijn dumb (props in, emits uit).
 - Composables mogen andere composables aanroepen. `useFilters` roept `useExpenses()` aan om de singleton-expenses te lezen zonder die via `ExpenseTracker` door te geven.
-- `src/types/index.ts` bevat alleen domein­types — UI-staat (form state, interne composable-state) blijft lokaal in het composable dat het gebruikt.
+- `src/types/index.ts` bevat **uitsluitend domaintypes** (`Expense`, `Category`, `Filters`, `SortField`, `SortOrder`). UI-types horen hier niet thuis.
+- UI-types die gedeeld worden tussen een composable en de bijbehorende component (bijv. `FormErrors`, `FormField`, `OnBlurFn`) worden geëxporteerd vanuit het composable, niet vanuit `src/types/index.ts` en niet inline in de component. De component importeert alleen de types, niet de composable-functie zelf.
 
 ### Tests
 - Testbestanden staan in een `__tests__/` map naast het bestand dat ze testen (bijv. `composables/__tests__/useExpenses.spec.ts`), niet als `*.test.ts` naast de bron.
