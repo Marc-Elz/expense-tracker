@@ -5,7 +5,7 @@ Single-page app to log, categorize, filter, sort, and summarize personal expense
 
 ## Types
 - `Expense`: id (uuid), description (str ≤100), amount (float >0 ≤999999.99), category, date (YYYY-MM-DD), createdAt (timestamp)
-- `Category` enum: `Food | Transport | Entertainment | Other`
+- `Category` (string union): `'Food' | 'Transport' | 'Entertainment' | 'Other'`
 - `SortField`: `'date' | 'amount'` — `SortOrder`: `'asc' | 'desc'`
 - `Filters`: `{ category: Category | 'All', sortField, sortOrder }`
 
