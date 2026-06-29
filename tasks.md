@@ -31,12 +31,12 @@
 
 ## Fase 3: Dumb Components
 
-- [ ] **3.1** Bouw `ExpenseForm.vue`: props: `expense?` — emits: `submit(expense)`, `cancel`
-- [ ] **3.2** Bouw `ExpenseList.vue`: props: `expenses` — emits: `edit(expense)`, `delete(id)` — toont lege staat als array leeg is
-- [ ] **3.3** Bouw `ExpenseItem.vue`: props: `expense` — emits: `edit`, `delete`
-- [ ] **3.4** Bouw `SummaryDashboard.vue`: props: `total`, `categoryTotals` — geen eigen berekeningen
-- [ ] **3.5** Bouw `FilterBar.vue`: props: `filters` — emits: `update:filters`
-- [ ] **3.6** Bouw `ConfirmModal.vue`: props: `open`, `message` — emits: `confirm`, `cancel`
+- [x] **3.1** Bouw `ExpenseForm.vue`: props: `expense?` — emits: `submit(expense)`, `cancel`
+- [x] **3.2** Bouw `ExpenseList.vue`: props: `expenses` — emits: `edit(expense)`, `delete(id)` — toont lege staat als array leeg is
+- [x] **3.3** Bouw `ExpenseItem.vue`: props: `expense` — emits: `edit`, `delete`
+- [x] **3.4** Bouw `SummaryDashboard.vue`: props: `total`, `categoryTotals` — geen eigen berekeningen
+- [x] **3.5** Bouw `FilterBar.vue`: props: `filters` — emits: `update:filters`
+- [x] **3.6** Bouw `ConfirmModal.vue`: props: `open`, `message` — emits: `confirm`, `cancel`
 
 > Testbaar: componenten renderen correct met hardcoded props, geen composable-imports in components map
 
