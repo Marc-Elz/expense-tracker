@@ -1,13 +1,16 @@
 <template>
   <div>
-    <select multiple @change="handleCategoryChange">
-      <option
-        v-for="cat in CATEGORIES"
-        :key="cat"
-        :value="cat"
-        :selected="filters.category.includes(cat)"
-      >{{ cat }}</option>
+    <select
+      value=""
+      @change="addCategory(($event.target as HTMLSelectElement).value as Category); ($event.target as HTMLSelectElement).value = ''"
+    >
+      <option value="" disabled>+ Categorie toevoegen</option>
+      <option v-for="cat in availableCategories" :key="cat" :value="cat">{{ cat }}</option>
     </select>
+
+    <span v-for="cat in filters.category" :key="cat">
+      {{ cat }} <button type="button" @click="removeCategory(cat)">×</button>
+    </span>
 
     <select
       :value="filters.sortField"
@@ -28,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { Category, Filters, SortField, SortOrder } from '../types'
 import { CATEGORIES } from '../types'
 
@@ -39,10 +43,18 @@ const emit = defineEmits<{
   'update:filters': [filters: Filters]
 }>()
 
-function handleCategoryChange(event: Event) {
-  const selected = Array.from(
-    (event.target as HTMLSelectElement).selectedOptions,
-  ).map((o) => o.value as Category)
-  emit('update:filters', { ...props.filters, category: selected })
+const availableCategories = computed(() =>
+  CATEGORIES.filter((cat) => !props.filters.category.includes(cat)),
+)
+
+function addCategory(cat: Category) {
+  emit('update:filters', { ...props.filters, category: [...props.filters.category, cat] })
+}
+
+function removeCategory(cat: Category) {
+  emit('update:filters', {
+    ...props.filters,
+    category: props.filters.category.filter((c) => c !== cat),
+  })
 }
 </script>
