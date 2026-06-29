@@ -19,7 +19,7 @@ import type { Expense } from '../types'
 import ExpenseItem from './ExpenseItem.vue'
 
 defineProps<{
-  expenses: Expense[]
+  expenses: readonly Expense[]
 }>()
 
 const emit = defineEmits<{

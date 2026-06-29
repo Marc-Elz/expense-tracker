@@ -44,9 +44,9 @@
 
 ## Fase 4: Orchestrator
 
-- [ ] **4.1** Scaffold `ExpenseTracker.vue`: importeer alle drie composables, render `ExpenseList` (`:expenses` uit `useExpenses`) en `SummaryDashboard` (`:total`, `:categoryTotals` berekend in orchestrator)
-- [ ] **4.2** Voeg `ExpenseForm` toe: koppel `submit`-emit aan `addExpense` + `resetForm`, koppel `cancel`-emit aan `resetForm`
-- [ ] **4.3** Koppel `edit`-emit van `ExpenseList` aan `populateForm`; in edit mode roept `submit` `updateExpense` aan en sluit daarna de form — slechts één edit tegelijk actief
+- [x] **4.1** Scaffold `ExpenseTracker.vue`: importeer alle drie composables, render `ExpenseList` (`:expenses` uit `useExpenses`) en `SummaryDashboard` (`:total`, `:categoryTotals` berekend in orchestrator)
+- [x] **4.2** Voeg `ExpenseForm` toe: koppel `submit`-emit aan `addExpense` + `resetForm`, koppel `cancel`-emit aan `resetForm`
+- [x] **4.3** Koppel `edit`-emit van `ExpenseList` aan `populateForm`; in edit mode roept `submit` `updateExpense` aan en sluit daarna de form — slechts één edit tegelijk actief
 - [ ] **4.4** Voeg `ConfirmModal` toe: koppel `delete`-emit van `ExpenseList` aan modal, `confirm`-emit roept `deleteExpense` aan, `cancel`-emit sluit modal
 - [ ] **4.5** Voeg `FilterBar` toe: koppel `update:filters`-emit aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
 - [ ] **4.6** Bereken `total` en `categoryTotals` op basis van `filteredExpenses` in `ExpenseTracker`, geef door aan `SummaryDashboard`
@@ -77,3 +77,15 @@
 - [ ] **6.5** Voeg basis CSS toe (layout, form styling, tabel, modal overlay)
 
 > Testbaar: bedragen correct geformatteerd, standaardwaarden correct bij eerste load, UI bruikbaar op 1280px breedte
+
+---
+
+## Fase 7: Routing — Create & Edit op eigen pagina
+
+- [ ] **7.1** Installeer `vue-router` in `app/`, maak `src/router/index.ts` aan met drie routes: `/` (lijstpagina), `/create` (aanmaken) en `/edit/:id` (bewerken)
+- [ ] **7.2** Vervang de inhoud van `App.vue` door `<RouterView>`, maak `src/pages/HomePage.vue` (lijst + filter + dashboard + "Toevoegen"-knop die naar `/create` navigeert) en verwijder het inline form uit deze pagina
+- [ ] **7.3** Maak `src/pages/CreatePage.vue`: rendert `ExpenseForm` zonder vooraf gevulde waarden, roept `addExpense` aan bij submit en navigeert daarna naar `/`, annuleren navigeert terug naar `/`
+- [ ] **7.4** Maak `src/pages/EditPage.vue`: laadt expense op basis van `:id` uit de route via `useExpenses`, vult `ExpenseForm` via `populateForm`, roept `updateExpense` aan bij submit en navigeert naar `/`; onbekend id redirect naar `/`
+- [ ] **7.5** Verwijder `editingId`, `editingExpense`, `handleEdit` en de inline `ExpenseForm` uit de voormalige `ExpenseTracker.vue`/`HomePage.vue`, en verwijder de `edit`-emit koppeling van `ExpenseList`
+
+> Testbaar: `/` toont lijst zonder form, "Toevoegen" navigeert naar `/create`, opslaan keert terug met nieuwe expense, Edit-knop navigeert naar `/edit/:id` met gevuld form, opslaan keert terug met bijgewerkte expense, annuleren keert altijd terug zonder wijziging, directe URL naar onbekend id redirect naar `/`

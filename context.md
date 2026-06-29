@@ -69,6 +69,10 @@ expense-tracker/
 - **Negatief/nul bedrag**: geblokkeerd door validatie vóór opslaan
 - **Gelijktijdig editen**: slechts één form actief tegelijk; open edit sluit vorige
 
+## Routing
+
+Vue Router met drie routes: `/` (lijst), `/create` (aanmaken), `/edit/:id` (bewerken). Create en Edit krijgen elk een eigen pagina zodat het form niet inline op de lijstpagina staat. `ExpenseForm` wordt als component hergebruikt op beide pagina's. `App.vue` rendert alleen `<RouterView>`.
+
 ## UX Rules
 - **Save-knop** disabled zolang form invalid of ongewijzigd (edit mode)
 - **Delete** vraagt om bevestiging via ConfirmModal (Cancel + Confirm)
