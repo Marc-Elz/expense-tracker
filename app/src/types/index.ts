@@ -7,7 +7,7 @@ export type SortField = 'date' | 'amount'
 export type SortOrder = 'asc' | 'desc'
 
 export interface Filters {
-  category: Category | 'All'
+  category: Category[]
   sortField: SortField
   sortOrder: SortOrder
 }

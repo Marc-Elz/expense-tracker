@@ -4,13 +4,13 @@ import { useExpenses } from './useExpenses'
 
 export function useFilters() {
   const { expenses } = useExpenses()
-  const filters = ref<Filters>({ category: 'All', sortField: 'date', sortOrder: 'desc' })
+  const filters = ref<Filters>({ category: [], sortField: 'date', sortOrder: 'desc' })
 
   const filteredExpenses = computed(() => {
     let result = expenses.value.slice()
 
-    if (filters.value.category !== 'All') {
-      result = result.filter((e) => e.category === filters.value.category)
+    if (filters.value.category.length > 0) {
+      result = result.filter((e) => filters.value.category.includes(e.category))
     }
 
     result.sort((a, b) => {

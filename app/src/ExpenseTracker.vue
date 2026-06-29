@@ -42,14 +42,14 @@ const editingExpense = computed(() =>
 const formKey = ref(0)
 const pendingDeleteId = ref<string | null>(null)
 
-const total = computed(() => expenses.value.reduce((sum, e) => sum + e.amount, 0))
+const total = computed(() => filteredExpenses.value.reduce((sum, e) => sum + e.amount, 0))
 
 const categoryTotals = computed(
   () =>
     Object.fromEntries(
       CATEGORIES.map((cat) => [
         cat,
-        expenses.value
+        filteredExpenses.value
           .filter((e) => e.category === cat)
           .reduce((sum, e) => sum + e.amount, 0),
       ]),

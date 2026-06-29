@@ -1,11 +1,12 @@
 <template>
   <div>
-    <select
-      :value="filters.category"
-      @change="emit('update:filters', { ...filters, category: ($event.target as HTMLSelectElement).value as Category | 'All' })"
-    >
-      <option value="All">All</option>
-      <option v-for="cat in CATEGORIES" :key="cat" :value="cat">{{ cat }}</option>
+    <select multiple @change="handleCategoryChange">
+      <option
+        v-for="cat in CATEGORIES"
+        :key="cat"
+        :value="cat"
+        :selected="filters.category.includes(cat)"
+      >{{ cat }}</option>
     </select>
 
     <select
@@ -30,11 +31,18 @@
 import type { Category, Filters, SortField, SortOrder } from '../types'
 import { CATEGORIES } from '../types'
 
-defineProps<{
+const props = defineProps<{
   filters: Filters
 }>()
 
 const emit = defineEmits<{
   'update:filters': [filters: Filters]
 }>()
+
+function handleCategoryChange(event: Event) {
+  const selected = Array.from(
+    (event.target as HTMLSelectElement).selectedOptions,
+  ).map((o) => o.value as Category)
+  emit('update:filters', { ...props.filters, category: selected })
+}
 </script>

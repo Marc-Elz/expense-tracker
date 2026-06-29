@@ -7,7 +7,7 @@ Single-page app to log, categorize, filter, sort, and summarize personal expense
 - `Expense`: id (uuid), description (str ≤100), amount (float >0 ≤999999.99), category, date (YYYY-MM-DD), createdAt (timestamp)
 - `Category` (string union): `'Food' | 'Transport' | 'Entertainment' | 'Other'`
 - `SortField`: `'date' | 'amount'` — `SortOrder`: `'asc' | 'desc'`
-- `Filters`: `{ category: Category | 'All', sortField, sortOrder }`
+- `Filters`: `{ category: Category[], sortField, sortOrder }` — lege array betekent "All"
 
 ## Validation Rules
 | Field       | Rule                                                 |
@@ -79,5 +79,5 @@ Vue Router met drie routes: `/` (lijst), `/create` (aanmaken), `/edit/:id` (bewe
 - **Foutmeldingen** verschijnen inline onder elk veld na blur of submit-poging
 - **Bedrag** getoond als `€ 1.234,56` (nl-NL locale)
 - **Datum** gesorteerd descending by default (nieuwste eerst)
-- **Filter "All"** is de standaard categorie-filter
+- **Categorie-filter** standaard leeg (= alle categorieën); meerdere categorieën tegelijk selecteerbaar via chips in `FilterBar`
 - **Formulier category** staat standaard op `'Food'` (eerste waarde in de union)

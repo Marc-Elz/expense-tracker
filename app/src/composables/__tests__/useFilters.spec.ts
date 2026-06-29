@@ -32,30 +32,41 @@ describe('useFilters', () => {
   const transport = { description: 'Bus', amount: 3.0, category: 'Transport' as const, date: '2024-01-20' }
   const expensiveFood = { description: 'Diner', amount: 50.0, category: 'Food' as const, date: '2024-01-15' }
 
-  it('filter All toont alle expenses', async () => {
+  it('lege categorie-filter toont alle expenses', async () => {
     const { addExpense, filteredExpenses, filters } = await getComposables()
     addExpense(food)
     addExpense(transport)
-    filters.value.category = 'All'
+    filters.value.category = []
     expect(filteredExpenses.value).toHaveLength(2)
   })
 
-  it('filter Food toont alleen Food-expenses', async () => {
+  it('filter [Food] toont alleen Food-expenses', async () => {
     const { addExpense, filteredExpenses, filters } = await getComposables()
     addExpense(food)
     addExpense(transport)
-    filters.value.category = 'Food'
+    filters.value.category = ['Food']
     expect(filteredExpenses.value).toHaveLength(1)
     expect(filteredExpenses.value[0].category).toBe('Food')
   })
 
-  it('filter Transport toont alleen Transport-expenses', async () => {
+  it('filter [Transport] toont alleen Transport-expenses', async () => {
     const { addExpense, filteredExpenses, filters } = await getComposables()
     addExpense(food)
     addExpense(transport)
-    filters.value.category = 'Transport'
+    filters.value.category = ['Transport']
     expect(filteredExpenses.value).toHaveLength(1)
     expect(filteredExpenses.value[0].category).toBe('Transport')
+  })
+
+  it('filter [Food, Transport] toont beide categorieën en filtert overige weg', async () => {
+    const { addExpense, filteredExpenses, filters } = await getComposables()
+    const entertainment = { description: 'Film', amount: 15.0, category: 'Entertainment' as const, date: '2024-01-05' }
+    addExpense(food)
+    addExpense(transport)
+    addExpense(entertainment)
+    filters.value.category = ['Food', 'Transport']
+    expect(filteredExpenses.value).toHaveLength(2)
+    expect(filteredExpenses.value.map((e) => e.category)).not.toContain('Entertainment')
   })
 
   it('sort datum asc geeft oudste eerst', async () => {

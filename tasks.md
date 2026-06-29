@@ -24,8 +24,10 @@
 - [x] **2.6** Implementeer `useExpenseForm.ts`: form state, `resetForm`, `populateForm(expense)`
 - [x] **2.7** Test `useExpenses`: `addExpense`, `updateExpense`, `deleteExpense`, localStorage persistentie, corrupt data → lege array, `QuotaExceededError` gooit geen crash
 - [x] **2.8** Test `useFilters`: filter op elke categorie + "All", sort datum asc/desc, sort bedrag asc/desc
+- [x] **2.9** Wijzig `Filters.category` naar `Category[]` (lege array = "All"), update filterlogica in `useFilters` en de minimale aanpassing in `FilterBar` om type-correct te blijven
+- [x] **2.10** Test `useFilters` multi-categorie: `[]` toont alles, `['Food']` filtert correct, `['Food', 'Transport']` toont beide en filtert overige categorieën weg
 
-> Testbaar: composables importeerbaar in `ExpenseTracker.vue`, CRUD muteert de array correct, localStorage bevat data na reload, `npm run test` slaagt voor 2.7 en 2.8
+> Testbaar: composables importeerbaar in `ExpenseTracker.vue`, CRUD muteert de array correct, localStorage bevat data na reload, `npm run test` slaagt voor 2.7 t/m 2.10
 
 ---
 
@@ -49,9 +51,10 @@
 - [x] **4.3** Koppel `edit`-emit van `ExpenseList` aan `populateForm`; in edit mode roept `submit` `updateExpense` aan en sluit daarna de form — slechts één edit tegelijk actief
 - [x] **4.4** Voeg `ConfirmModal` toe: koppel `delete`-emit van `ExpenseList` aan modal, `confirm`-emit roept `deleteExpense` aan, `cancel`-emit sluit modal
 - [x] **4.5** Voeg `FilterBar` toe: koppel `update:filters`-emit aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
-- [ ] **4.6** Bereken `total` en `categoryTotals` op basis van `filteredExpenses` in `ExpenseTracker`, geef door aan `SummaryDashboard`
+- [x] **4.6** Bereken `total` en `categoryTotals` op basis van `filteredExpenses` in `ExpenseTracker`, geef door aan `SummaryDashboard`
+- [x] **4.7** Vervang de categorie-`<select>` in `FilterBar` door een `<select multiple>` zodat meerdere categorieën tegelijk selecteerbaar zijn — emits `Category[]`, lege selectie = alle categorieën
 
-> Testbaar na 4.1: lijst en totalen tonen · na 4.2: expense toevoegen · na 4.3: expense bewerken · na 4.4: expense verwijderen · na 4.5: filter + sort · na 4.6: dashboard klopt na elke wijziging
+> Testbaar na 4.1: lijst en totalen tonen · na 4.2: expense toevoegen · na 4.3: expense bewerken · na 4.4: expense verwijderen · na 4.5: filter + sort · na 4.6: dashboard klopt na elke wijziging · na 4.7: meerdere categorieën tegelijk selecteerbaar
 
 ---
 
@@ -75,8 +78,9 @@
 - [ ] **6.3** Pas `formatCurrency` toe in `ExpenseItem` en `SummaryDashboard` via prop of filter
 - [ ] **6.4** Stel standaard filter in op `All` en standaard sort op datum descending (in `useFilters`)
 - [ ] **6.5** Voeg basis CSS toe (layout, form styling, tabel, modal overlay)
+- [ ] **6.6** Vervang de `<select multiple>` in `FilterBar` door de chip-UI: een dropdown om een categorie toe te voegen, actieve categorieën getoond als chips met ×-knop
 
-> Testbaar: bedragen correct geformatteerd, standaardwaarden correct bij eerste load, UI bruikbaar op 1280px breedte
+> Testbaar: bedragen correct geformatteerd, standaardwaarden correct bij eerste load, UI bruikbaar op 1280px breedte, meerdere categorieën selecteerbaar en verwijderbaar via chips
 
 ---
 
