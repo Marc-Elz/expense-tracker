@@ -1,7 +1,31 @@
-import { readonly, ref } from 'vue'
+import { readonly, ref, watch } from 'vue'
 import type { Expense } from '../types'
 
-const expenses = ref<Expense[]>([])
+const STORAGE_KEY = 'expenses'
+
+function loadFromStorage(): Expense[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw === null) return []
+    return JSON.parse(raw) as Expense[]
+  } catch {
+    return []
+  }
+}
+
+const expenses = ref<Expense[]>(loadFromStorage())
+
+watch(
+  expenses,
+  (newExpenses) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newExpenses))
+    } catch {
+      // toast komt in taak 5.4
+    }
+  },
+  { deep: true },
+)
 
 export function useExpenses() {
   function addExpense(data: Omit<Expense, 'id' | 'createdAt'>) {

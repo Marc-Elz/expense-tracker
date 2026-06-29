@@ -18,12 +18,12 @@
 
 - [x] **2.1** Definieer `Expense`, `Category`, `SortField`, `SortOrder`, `Filters` in `src/types/index.ts`
 - [x] **2.2** Implementeer `useExpenses.ts`: `expenses` ref, `addExpense`, `updateExpense`, `deleteExpense`
-- [ ] **2.3** Voeg localStorage lezen toe aan `useExpenses` (init + try/catch voor corrupt data)
-- [ ] **2.4** Voeg localStorage schrijven toe aan `useExpenses` (watch + try/catch voor QuotaExceededError)
-- [ ] **2.5** Implementeer `useFilters.ts`: `filters` ref, `filteredExpenses` computed (filter + sort)
-- [ ] **2.6** Implementeer `useExpenseForm.ts`: form state, `resetForm`, `populateForm(expense)`
-- [ ] **2.7** Test `useExpenses`: `addExpense`, `updateExpense`, `deleteExpense`, localStorage persistentie, corrupt data → lege array, `QuotaExceededError` gooit geen crash
-- [ ] **2.8** Test `useFilters`: filter op elke categorie + "All", sort datum asc/desc, sort bedrag asc/desc
+- [x] **2.3** Voeg localStorage lezen toe aan `useExpenses` (init + try/catch voor corrupt data)
+- [x] **2.4** Voeg localStorage schrijven toe aan `useExpenses` (watch + try/catch voor QuotaExceededError)
+- [x] **2.5** Implementeer `useFilters.ts`: `filters` ref, `filteredExpenses` computed (filter + sort)
+- [x] **2.6** Implementeer `useExpenseForm.ts`: form state, `resetForm`, `populateForm(expense)`
+- [x] **2.7** Test `useExpenses`: `addExpense`, `updateExpense`, `deleteExpense`, localStorage persistentie, corrupt data → lege array, `QuotaExceededError` gooit geen crash
+- [x] **2.8** Test `useFilters`: filter op elke categorie + "All", sort datum asc/desc, sort bedrag asc/desc
 
 > Testbaar: composables importeerbaar in `ExpenseTracker.vue`, CRUD muteert de array correct, localStorage bevat data na reload, `npm run test` slaagt voor 2.7 en 2.8
 

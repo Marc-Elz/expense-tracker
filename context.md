@@ -17,6 +17,10 @@ Single-page app to log, categorize, filter, sort, and summarize personal expense
 | category    | Verplicht, moet geldige Category-waarde zijn         |
 | date        | Verplicht, geldig YYYY-MM-DD, niet in de toekomst    |
 
+## State Management
+
+`useExpenses` gebruikt een **module-level singleton**: de `expenses` ref staat buiten de functie, zodat alle aanroepers dezelfde instantie delen. Dit voorkomt dataconflicten — er is altijd één globaal toegangspunt voor de expense-lijst.
+
 ## Component Architecture
 
 **Folder structuur**
@@ -46,7 +50,17 @@ expense-tracker/
         └── App.vue               — importeert alleen ExpenseTracker.vue
 ```
 
-**Regel:** alleen `ExpenseTracker.vue` gebruikt composables — overige components zijn dumb (props in, emits uit).
+## Regels
+
+### Architectuur
+- Alleen `ExpenseTracker.vue` gebruikt composables — overige components zijn dumb (props in, emits uit).
+- Composables mogen andere composables aanroepen. `useFilters` roept `useExpenses()` aan om de singleton-expenses te lezen zonder die via `ExpenseTracker` door te geven.
+- `src/types/index.ts` bevat alleen domein­types — UI-staat (form state, interne composable-state) blijft lokaal in het composable dat het gebruikt.
+
+### Tests
+- Testbestanden staan in een `__tests__/` map naast het bestand dat ze testen (bijv. `composables/__tests__/useExpenses.spec.ts`), niet als `*.test.ts` naast de bron.
+- jsdom's localStorage werkt niet betrouwbaar — elke testfile die localStorage raakt zet een eigen `vi.stubGlobal('localStorage', mock)` op met een plain-object store.
+- Tests die de `useExpenses`-singleton raken (direct of via `useFilters`) gebruiken `vi.resetModules()` in `beforeEach` en importeren composables dynamisch via `await import(...)`. Samenhangende composables worden in één `getComposables()`-functie geïmporteerd zodat ze dezelfde singleton-instantie delen.
 
 ## Edge Cases
 - **Geen expenses**: toon lege staat met call-to-action, geen tabel/dashboard
@@ -62,3 +76,4 @@ expense-tracker/
 - **Bedrag** getoond als `€ 1.234,56` (nl-NL locale)
 - **Datum** gesorteerd descending by default (nieuwste eerst)
 - **Filter "All"** is de standaard categorie-filter
+- **Formulier category** staat standaard op `'Food'` (eerste waarde in de union)
