@@ -44,15 +44,14 @@
 
 ## Fase 4: Orchestrator
 
-- [ ] **4.1** Maak `src/ExpenseTracker.vue`, importeer alle drie composables, render alle components met berekende props
-- [ ] **4.2** Koppel `submit`-emit van `ExpenseForm` aan `addExpense`, reset form daarna via `resetForm`
-- [ ] **4.3** Koppel `edit`-emit aan `populateForm`, submit in edit mode roept `updateExpense` aan
-- [ ] **4.4** Zorg dat slechts één edit tegelijk actief is (open edit sluit vorige)
-- [ ] **4.5** Koppel `delete`-emit aan `ConfirmModal`, `confirm`-emit roept `deleteExpense` aan
-- [ ] **4.6** Koppel `update:filters`-emit van `FilterBar` aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
-- [ ] **4.7** Bereken `total` en `categoryTotals` in `ExpenseTracker`, geef door aan `SummaryDashboard`
+- [ ] **4.1** Scaffold `ExpenseTracker.vue`: importeer alle drie composables, render `ExpenseList` (`:expenses` uit `useExpenses`) en `SummaryDashboard` (`:total`, `:categoryTotals` berekend in orchestrator)
+- [ ] **4.2** Voeg `ExpenseForm` toe: koppel `submit`-emit aan `addExpense` + `resetForm`, koppel `cancel`-emit aan `resetForm`
+- [ ] **4.3** Koppel `edit`-emit van `ExpenseList` aan `populateForm`; in edit mode roept `submit` `updateExpense` aan en sluit daarna de form — slechts één edit tegelijk actief
+- [ ] **4.4** Voeg `ConfirmModal` toe: koppel `delete`-emit van `ExpenseList` aan modal, `confirm`-emit roept `deleteExpense` aan, `cancel`-emit sluit modal
+- [ ] **4.5** Voeg `FilterBar` toe: koppel `update:filters`-emit aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
+- [ ] **4.6** Bereken `total` en `categoryTotals` op basis van `filteredExpenses` in `ExpenseTracker`, geef door aan `SummaryDashboard`
 
-> Testbaar: volledige CRUD-cyclus werkt, filter + sort werken, dashboard klopt na elke wijziging
+> Testbaar na 4.1: lijst en totalen tonen · na 4.2: expense toevoegen · na 4.3: expense bewerken · na 4.4: expense verwijderen · na 4.5: filter + sort · na 4.6: dashboard klopt na elke wijziging
 
 ---
 
