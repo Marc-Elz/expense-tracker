@@ -47,8 +47,8 @@
 - [x] **4.1** Scaffold `ExpenseTracker.vue`: importeer alle drie composables, render `ExpenseList` (`:expenses` uit `useExpenses`) en `SummaryDashboard` (`:total`, `:categoryTotals` berekend in orchestrator)
 - [x] **4.2** Voeg `ExpenseForm` toe: koppel `submit`-emit aan `addExpense` + `resetForm`, koppel `cancel`-emit aan `resetForm`
 - [x] **4.3** Koppel `edit`-emit van `ExpenseList` aan `populateForm`; in edit mode roept `submit` `updateExpense` aan en sluit daarna de form — slechts één edit tegelijk actief
-- [ ] **4.4** Voeg `ConfirmModal` toe: koppel `delete`-emit van `ExpenseList` aan modal, `confirm`-emit roept `deleteExpense` aan, `cancel`-emit sluit modal
-- [ ] **4.5** Voeg `FilterBar` toe: koppel `update:filters`-emit aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
+- [x] **4.4** Voeg `ConfirmModal` toe: koppel `delete`-emit van `ExpenseList` aan modal, `confirm`-emit roept `deleteExpense` aan, `cancel`-emit sluit modal
+- [x] **4.5** Voeg `FilterBar` toe: koppel `update:filters`-emit aan `useFilters`, geef `filteredExpenses` door aan `ExpenseList`
 - [ ] **4.6** Bereken `total` en `categoryTotals` op basis van `filteredExpenses` in `ExpenseTracker`, geef door aan `SummaryDashboard`
 
 > Testbaar na 4.1: lijst en totalen tonen · na 4.2: expense toevoegen · na 4.3: expense bewerken · na 4.4: expense verwijderen · na 4.5: filter + sort · na 4.6: dashboard klopt na elke wijziging

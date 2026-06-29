@@ -7,28 +7,40 @@
       @submit="handleFormSubmit"
       @cancel="handleCancel"
     />
-    <ExpenseList :expenses="expenses" @edit="handleEdit" />
+    <FilterBar :filters="filters" @update:filters="handleFiltersUpdate" />
+    <ExpenseList :expenses="filteredExpenses" @edit="handleEdit" @delete="handleDeleteRequest" />
+    <ConfirmModal
+      :open="pendingDeleteId !== null"
+      message="Weet je zeker dat je deze uitgave wilt verwijderen?"
+      @confirm="handleConfirmDelete"
+      @cancel="handleCancelDelete"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { Category, Expense } from './types'
+import type { Category, Expense, Filters } from './types'
 import { CATEGORIES } from './types'
 import { useExpenses } from './composables/useExpenses'
 import { useExpenseForm } from './composables/useExpenseForm'
+import { useFilters } from './composables/useFilters'
 import ExpenseForm from './components/ExpenseForm.vue'
 import ExpenseList from './components/ExpenseList.vue'
+import FilterBar from './components/FilterBar.vue'
 import SummaryDashboard from './components/SummaryDashboard.vue'
+import ConfirmModal from './components/ConfirmModal.vue'
 
-const { expenses, addExpense, updateExpense } = useExpenses()
+const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses()
 const { editingId, resetForm, populateForm } = useExpenseForm()
+const { filters, filteredExpenses } = useFilters()
 
 const editingExpense = computed(() =>
   editingId.value ? expenses.value.find((e) => e.id === editingId.value) : undefined,
 )
 
 const formKey = ref(0)
+const pendingDeleteId = ref<string | null>(null)
 
 const total = computed(() => expenses.value.reduce((sum, e) => sum + e.amount, 0))
 
@@ -56,6 +68,23 @@ function handleFormSubmit(data: Omit<Expense, 'id' | 'createdAt'>) {
   }
   resetForm()
   formKey.value++
+}
+
+function handleFiltersUpdate(newFilters: Filters) {
+  filters.value = newFilters
+}
+
+function handleDeleteRequest(id: string) {
+  pendingDeleteId.value = id
+}
+
+function handleConfirmDelete() {
+  if (pendingDeleteId.value) deleteExpense(pendingDeleteId.value)
+  pendingDeleteId.value = null
+}
+
+function handleCancelDelete() {
+  pendingDeleteId.value = null
 }
 
 function handleCancel() {
