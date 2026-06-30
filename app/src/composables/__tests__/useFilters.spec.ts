@@ -32,6 +32,20 @@ describe('useFilters', () => {
   const transport = { description: 'Bus', amount: 3.0, category: 'Transport' as const, date: '2024-01-20' }
   const expensiveFood = { description: 'Diner', amount: 50.0, category: 'Food' as const, date: '2024-01-15' }
 
+  it('standaard filter is All en standaard sort is datum descending bij eerste load', async () => {
+    const { addExpense, filteredExpenses, filters } = await getComposables()
+    expect(filters.value).toEqual({ category: [], sortField: 'date', sortOrder: 'desc' })
+
+    addExpense(food)
+    addExpense(transport)
+    addExpense(expensiveFood)
+    expect(filteredExpenses.value.map((e) => e.date)).toEqual([
+      '2024-01-20',
+      '2024-01-15',
+      '2024-01-10',
+    ])
+  })
+
   it('lege categorie-filter toont alle expenses', async () => {
     const { addExpense, filteredExpenses, filters } = await getComposables()
     addExpense(food)
