@@ -1,11 +1,13 @@
 <template>
   <div>
+    <Toast :message="storageError" @dismiss="clearStorageError" />
     <SummaryDashboard :total="total" :category-totals="categoryTotals" />
     <ExpenseForm
       :key="formKey"
       :expense="editingExpense"
       :errors="errors"
       :on-blur="handleBlur"
+      :disabled="saveDisabled"
       @submit="handleFormSubmit"
       @cancel="handleCancel"
     />
@@ -32,9 +34,11 @@ import ExpenseList from './components/ExpenseList.vue'
 import FilterBar from './components/FilterBar.vue'
 import SummaryDashboard from './components/SummaryDashboard.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
+import Toast from './components/Toast.vue'
 
-const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses()
-const { form, editingId, errors, validateField, resetForm, populateForm } = useExpenseForm()
+const { expenses, addExpense, updateExpense, deleteExpense, storageError, clearStorageError } =
+  useExpenses()
+const { form, editingId, errors, isValid, validateField, resetForm, populateForm } = useExpenseForm()
 const { filters, filteredExpenses } = useFilters()
 
 const editingExpense = computed(() =>
@@ -57,6 +61,19 @@ const categoryTotals = computed(
       ]),
     ) as Record<Category, number>,
 )
+
+const isUnchanged = computed(() => {
+  if (!editingId.value || !editingExpense.value) return false
+  const orig = editingExpense.value
+  return (
+    form.value.description === orig.description &&
+    form.value.amount === orig.amount &&
+    form.value.category === orig.category &&
+    form.value.date === orig.date
+  )
+})
+
+const saveDisabled = computed(() => !isValid.value || isUnchanged.value)
 
 function handleBlur(field: 'description' | 'amount' | 'category' | 'date', value: string | number | null) {
   form.value[field] = value as never

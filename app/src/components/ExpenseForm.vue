@@ -39,7 +39,7 @@
       <span v-if="errors.date">{{ errors.date }}</span>
     </div>
 
-    <button type="submit">Save</button>
+    <button type="submit" :disabled="disabled">Save</button>
     <button type="button" @click="emit('cancel')">Cancel</button>
   </form>
 </template>
@@ -54,6 +54,7 @@ const props = defineProps<{
   expense?: Expense
   errors: FormErrors
   onBlur: OnBlurFn
+  disabled: boolean
 }>()
 
 const emit = defineEmits<{

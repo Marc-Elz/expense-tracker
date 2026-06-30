@@ -99,4 +99,47 @@ describe('useExpenses', () => {
     await nextTick()
     // test bereikt deze regel = geen crash
   })
+
+  it('zet storageError en draait wijziging terug bij QuotaExceededError', async () => {
+    localStorageMock.setItem.mockImplementationOnce(() => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError')
+    })
+    const { expenses, addExpense, storageError } = await getComposable()
+    addExpense(sampleData)
+    await nextTick()
+    expect(storageError.value).toContain('Opslag is vol')
+    expect(expenses.value).toEqual([])
+  })
+
+  it('zet storageError en draait wijziging terug bij generieke schrijffout', async () => {
+    localStorageMock.setItem.mockImplementationOnce(() => {
+      throw new Error('disk full')
+    })
+    const { expenses, addExpense, storageError } = await getComposable()
+    addExpense(sampleData)
+    await nextTick()
+    expect(storageError.value).toBeTruthy()
+    expect(storageError.value).not.toContain('Opslag is vol')
+    expect(expenses.value).toEqual([])
+  })
+
+  it('clearStorageError zet storageError terug naar null', async () => {
+    localStorageMock.setItem.mockImplementationOnce(() => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError')
+    })
+    const { addExpense, storageError, clearStorageError } = await getComposable()
+    addExpense(sampleData)
+    await nextTick()
+    expect(storageError.value).not.toBeNull()
+    clearStorageError()
+    expect(storageError.value).toBeNull()
+  })
+
+  it('storageError blijft null en wijziging blijft staan bij succesvolle write', async () => {
+    const { expenses, addExpense, storageError } = await getComposable()
+    addExpense(sampleData)
+    await nextTick()
+    expect(storageError.value).toBeNull()
+    expect(expenses.value).toHaveLength(1)
+  })
 })
