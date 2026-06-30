@@ -74,9 +74,9 @@
 
 ## Fase 6: Opmaak & Polish
 
-- [ ] **6.1** Maak `src/utils/formatCurrency.ts` met `Intl.NumberFormat` (nl-NL, EUR)
-- [ ] **6.2** Test `formatCurrency`: `1234.56` → `€ 1.234,56`, `0` → `€ 0,00`, negatief getal correct geformatteerd
-- [ ] **6.3** Pas `formatCurrency` toe in `ExpenseItem` en `SummaryDashboard` via prop of filter
+- [x] **6.1** Maak `src/utils/formatCurrency.ts` met `Intl.NumberFormat` (nl-NL, EUR)
+- [x] **6.2** Test `formatCurrency`: `1234.56` → `€ 1.234,56`, `0` → `€ 0,00`, negatief getal correct geformatteerd
+- [x] **6.3** Pas `formatCurrency` toe in `ExpenseItem` en `SummaryDashboard` via prop of filter
 - [ ] **6.4** Stel standaard filter in op `All` en standaard sort op datum descending (in `useFilters`)
 - [ ] **6.5** Voeg basis CSS toe (layout, form styling, tabel, modal overlay)
 - [x] **6.6** Vervang de `<select multiple>` in `FilterBar` door de chip-UI: een dropdown om een categorie toe te voegen, actieve categorieën getoond als chips met ×-knop

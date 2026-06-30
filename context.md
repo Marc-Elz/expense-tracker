@@ -39,6 +39,8 @@ expense-tracker/
         │   ├── useExpenses.ts    — CRUD + localStorage sync (source of truth)
         │   ├── useFilters.ts     — filter/sort state + gefilterde computed
         │   └── useExpenseForm.ts — form state, validatie, submit handler
+        ├── utils/
+        │   └── formatCurrency.ts — Intl.NumberFormat (nl-NL, EUR)
         ├── components/
         │   ├── SummaryDashboard.vue  — props: total, categoryTotals
         │   ├── FilterBar.vue         — props: filters — emits: update:filters
