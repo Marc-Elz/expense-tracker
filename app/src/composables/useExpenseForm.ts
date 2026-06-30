@@ -68,7 +68,7 @@ export function useExpenseForm() {
         } else {
           const today = new Date()
           today.setHours(0, 0, 0, 0)
-          const entered = new Date(val)
+          const entered = new Date(`${val}T00:00:00`)
           if (isNaN(entered.getTime())) errors.value.date = 'Voer een geldige datum in.'
           else if (entered > today) errors.value.date = 'Datum mag niet in de toekomst liggen.'
           else errors.value.date = ''
