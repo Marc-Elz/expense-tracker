@@ -95,3 +95,9 @@
 - [x] **7.5** Zorg dat succesvolle submit én cancel `isFormOpen` op `false` zetten (naast het bestaande `resetForm`/`formKey`-gedrag)
 
 > Testbaar: lijstpagina toont geen permanent zichtbaar form meer · "Toevoegen" opent een lege form-modal · Edit-knop opent de modal met vooraf ingevuld form · submit en cancel sluiten de modal
+
+---
+
+## Verbeteringen
+
+- [ ] **V.1** Laat `resetForm` een optionele default-categorie accepteren; `ExpenseTracker.vue` geeft bij `handleAddNew` de actieve filtercategorie door als er precies één geselecteerd is (anders `'Food'`); test dat `resetForm` de juiste default zet in elk van de drie gevallen (0, 1, 2+ actieve filters)
