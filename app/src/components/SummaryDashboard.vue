@@ -2,7 +2,7 @@
   <div class="dashboard">
     <p class="total">Totaal: <strong>{{ formatCurrency(total) }}</strong></p>
     <ul class="breakdown">
-      <li v-for="cat in CATEGORIES" :key="cat">
+      <li v-for="cat in CATEGORIES" :key="cat" :class="`accent-${cat.toLowerCase()}`">
         <span class="category">{{ cat }}</span>
         <span>{{ formatCurrency(categoryTotals[cat]) }}</span>
       </li>
@@ -48,9 +48,27 @@ defineProps<{
   flex-direction: column;
   gap: var(--spacing-1);
   font-size: 0.9rem;
+  padding-left: var(--spacing-2);
+  border-left: 3px solid transparent;
 }
 
 .category {
   color: var(--color-text-muted);
+}
+
+.breakdown li.accent-food {
+  border-left-color: var(--color-food-text);
+}
+
+.breakdown li.accent-transport {
+  border-left-color: var(--color-transport-text);
+}
+
+.breakdown li.accent-entertainment {
+  border-left-color: var(--color-entertainment-text);
+}
+
+.breakdown li.accent-other {
+  border-left-color: var(--color-other-text);
 }
 </style>

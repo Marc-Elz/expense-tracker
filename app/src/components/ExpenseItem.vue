@@ -1,5 +1,5 @@
 <template>
-  <li class="table-row">
+  <li class="table-row" :class="`accent-${expense.category.toLowerCase()}`">
     <span>{{ expense.date }}</span>
     <span>{{ expense.description }}</span>
     <span>{{ expense.category }}</span>
@@ -33,10 +33,27 @@ const emit = defineEmits<{
   align-items: center;
   padding: var(--spacing-2) var(--spacing-3);
   border-bottom: 1px solid var(--color-border);
+  border-left: 6px solid transparent;
 }
 
 .table-row:last-child {
   border-bottom: none;
+}
+
+.accent-food {
+  border-left-color: var(--color-food-text);
+}
+
+.accent-transport {
+  border-left-color: var(--color-transport-text);
+}
+
+.accent-entertainment {
+  border-left-color: var(--color-entertainment-text);
+}
+
+.accent-other {
+  border-left-color: var(--color-other-text);
 }
 
 .actions {

@@ -74,5 +74,6 @@ const emit = defineEmits<{
   font-weight: 600;
   color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-border);
+  border-left: 6px solid transparent;
 }
 </style>
