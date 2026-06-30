@@ -7,6 +7,7 @@
       <ExpenseForm
         :key="formKey"
         :expense="editingExpense"
+        :default-category="newExpenseDefaultCategory"
         :errors="errors"
         :on-blur="handleBlur"
         :disabled="saveDisabled"
@@ -86,13 +87,17 @@ const isUnchanged = computed(() => {
 
 const saveDisabled = computed(() => !isValid.value || isUnchanged.value)
 
+const newExpenseDefaultCategory = computed<Category>(() =>
+  filters.value.category.length === 1 ? filters.value.category[0] : 'Food',
+)
+
 function handleBlur(field: 'description' | 'amount' | 'category' | 'date', value: string | number | null) {
   form.value[field] = value as never
   validateField(field)
 }
 
 function handleAddNew() {
-  resetForm()
+  resetForm(newExpenseDefaultCategory.value)
   formKey.value++
   isFormOpen.value = true
 }

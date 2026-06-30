@@ -100,4 +100,4 @@
 
 ## Verbeteringen
 
-- [ ] **V.1** Laat `resetForm` een optionele default-categorie accepteren; `ExpenseTracker.vue` geeft bij `handleAddNew` de actieve filtercategorie door als er precies één geselecteerd is (anders `'Food'`); test dat `resetForm` de juiste default zet in elk van de drie gevallen (0, 1, 2+ actieve filters)
+- [x] **V.1** Laat `resetForm` een optionele default-categorie accepteren; `ExpenseTracker.vue` geeft bij `handleAddNew` de actieve filtercategorie door als er precies één geselecteerd is (anders `'Food'`); test dat `resetForm` de juiste default zet in elk van de drie gevallen (0, 1, 2+ actieve filters)

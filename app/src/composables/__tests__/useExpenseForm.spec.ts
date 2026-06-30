@@ -203,6 +203,27 @@ describe('useExpenseForm', () => {
         date: '',
       })
     })
+
+    it('zet category op "Food" zonder argument (0 actieve filters)', () => {
+      const { form, resetForm } = useExpenseForm()
+      form.value.category = 'Transport'
+      resetForm()
+      expect(form.value.category).toBe('Food')
+    })
+
+    it('zet category op de meegegeven default (1 actieve filter)', () => {
+      const { form, resetForm } = useExpenseForm()
+      form.value.category = 'Food'
+      resetForm('Transport')
+      expect(form.value.category).toBe('Transport')
+    })
+
+    it('zet category op "Food" wanneer geen eenduidige default geldt (2+ actieve filters)', () => {
+      const { form, resetForm } = useExpenseForm()
+      form.value.category = 'Entertainment'
+      resetForm('Food')
+      expect(form.value.category).toBe('Food')
+    })
   })
 
   describe('populateForm', () => {

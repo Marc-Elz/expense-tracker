@@ -69,6 +69,7 @@ import type { FormErrors, OnBlurFn } from '../composables/useExpenseForm'
 
 const props = defineProps<{
   expense?: Expense
+  defaultCategory?: Category
   errors: FormErrors
   onBlur: OnBlurFn
   disabled: boolean
@@ -82,7 +83,7 @@ const emit = defineEmits<{
 const form = reactive({
   description: props.expense?.description ?? '',
   amount: (props.expense?.amount ?? null) as number | null,
-  category: (props.expense?.category ?? 'Food') as Category,
+  category: (props.expense?.category ?? props.defaultCategory ?? 'Food') as Category,
   date: props.expense?.date ?? '',
 })
 
@@ -91,7 +92,7 @@ watch(
   (newExpense) => {
     form.description = newExpense?.description ?? ''
     form.amount = newExpense?.amount ?? null
-    form.category = newExpense?.category ?? 'Food'
+    form.category = newExpense?.category ?? props.defaultCategory ?? 'Food'
     form.date = newExpense?.date ?? ''
   },
 )

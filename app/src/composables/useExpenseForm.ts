@@ -14,10 +14,10 @@ export type OnBlurFn = (field: FormField, value: string | number | null) => void
 
 const VALID_CATEGORIES: Category[] = ['Food', 'Transport', 'Entertainment', 'Other']
 
-const defaultForm = (): ExpenseFormState => ({
+const defaultForm = (category: Category = 'Food'): ExpenseFormState => ({
   description: '',
   amount: null,
-  category: 'Food',
+  category,
   date: '',
 })
 
@@ -91,8 +91,8 @@ export function useExpenseForm() {
       form.value.date !== '',
   )
 
-  function resetForm() {
-    form.value = defaultForm()
+  function resetForm(defaultCategory: Category = 'Food') {
+    form.value = defaultForm(defaultCategory)
     editingId.value = null
     errors.value = defaultErrors()
   }
