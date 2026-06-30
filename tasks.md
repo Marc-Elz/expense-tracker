@@ -103,3 +103,5 @@
 - [x] **V.1** Laat `resetForm` een optionele default-categorie accepteren; `ExpenseTracker.vue` geeft bij `handleAddNew` de actieve filtercategorie door als er precies één geselecteerd is (anders `'Food'`); test dat `resetForm` de juiste default zet in elk van de drie gevallen (0, 1, 2+ actieve filters)
 - [x] **V.2** Voeg een categoriekleur-accent toe aan de expense-lijst en het dashboard, consistent met de bestaande chips in `FilterBar`
   - Bugfix: in `SummaryDashboard.vue` overschreef de specifiekere `.breakdown li`-selector de `.accent-*`-kleur, waardoor de rand onzichtbaar bleef; opgelost door de accent-selectors te nesten (`.breakdown li.accent-food` enz.)
+- [x] **V.3** Vervang de "+ Categorie toevoegen"-select in `FilterBar.vue` door een filter-icoonknop die een dropdown met platte tekstopties opent
+  - Bugfix: outside-click detectie sloot de dropdown direct na het kiezen van een categorie, omdat de aangeklikte optie al uit de DOM verwijderd was vóór het click-event `document` bereikte; opgelost door `event.composedPath()` te gebruiken in plaats van `.contains()`

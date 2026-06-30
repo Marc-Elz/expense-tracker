@@ -1,14 +1,31 @@
 <template>
   <div class="filter-bar">
     <div class="categories">
-      <select
-        class="add-category"
-        value=""
-        @change="addCategory(($event.target as HTMLSelectElement).value as Category); ($event.target as HTMLSelectElement).value = ''"
-      >
-        <option value="" disabled>+ Categorie toevoegen</option>
-        <option v-for="cat in availableCategories" :key="cat" :value="cat">{{ cat }}</option>
-      </select>
+      <div class="filter-dropdown" ref="dropdownRef">
+        <button
+          type="button"
+          class="filter-toggle"
+          aria-label="Categorie toevoegen"
+          @click="isOpen = !isOpen"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M3 4h18l-7 8v6l-4 2v-8z" />
+          </svg>
+        </button>
+
+        <div v-if="isOpen" class="dropdown-menu">
+          <button
+            v-for="cat in availableCategories"
+            :key="cat"
+            type="button"
+            class="dropdown-option"
+            @click="addCategory(cat)"
+          >
+            {{ cat }}
+          </button>
+          <span v-if="availableCategories.length === 0" class="dropdown-empty">Alle categorieën geselecteerd</span>
+        </div>
+      </div>
 
       <span v-for="cat in filters.category" :key="cat" class="chip" :class="`chip-${cat.toLowerCase()}`">
         {{ cat }} <button type="button" class="chip-remove" @click="removeCategory(cat)">×</button>
@@ -36,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { Category, Filters, SortField, SortOrder } from '../types'
 import { CATEGORIES } from '../types'
 
@@ -51,6 +68,23 @@ const emit = defineEmits<{
 const availableCategories = computed(() =>
   CATEGORIES.filter((cat) => !props.filters.category.includes(cat)),
 )
+
+const isOpen = ref(false)
+const dropdownRef = ref<HTMLElement | null>(null)
+
+function handleClickOutside(event: MouseEvent) {
+  // composedPath() is a snapshot of the path at dispatch time, so it still
+  // reflects "was the click inside the dropdown" even if that click (e.g.
+  // selecting a category) caused the clicked element to be removed from the
+  // DOM before this document-level listener runs (event.target.contains()
+  // would wrongly say "outside" in that case).
+  if (dropdownRef.value && !event.composedPath().includes(dropdownRef.value)) {
+    isOpen.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
 
 function addCategory(cat: Category) {
   emit('update:filters', { ...props.filters, category: [...props.filters.category, cat] })
@@ -83,6 +117,66 @@ function removeCategory(cat: Category) {
 .sort {
   display: flex;
   gap: var(--spacing-1);
+}
+
+.filter-dropdown {
+  position: relative;
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.filter-toggle:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-1));
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  padding: var(--spacing-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-option {
+  text-align: left;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background: var(--color-bg);
+}
+
+.dropdown-empty {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding: var(--spacing-1) var(--spacing-2);
 }
 
 select {

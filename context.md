@@ -61,6 +61,7 @@ expense-tracker/
 - `src/types/index.ts` bevat **uitsluitend domaintypes** (`Expense`, `Category`, `Filters`, `SortField`, `SortOrder`). UI-types horen hier niet thuis.
 - UI-types die gedeeld worden tussen een composable en de bijbehorende component (bijv. `FormErrors`, `FormField`, `OnBlurFn`) worden geëxporteerd vanuit het composable, niet vanuit `src/types/index.ts` en niet inline in de component. De component importeert alleen de types, niet de composable-functie zelf.
 - `Modal.vue` is een generieke, dumb overlay-wrapper (slot-based: backdrop + gecentreerde box, props `open`, emit `cancel` bij click buiten de modal). `ConfirmModal.vue` gebruikt `Modal.vue` intern voor de overlay en voegt alleen het message + Cancel/Confirm-gedrag toe. De create/edit form-modal in `ExpenseTracker.vue` wrapt `ExpenseForm` ook in `Modal.vue`, zonder een apart `FormModal.vue` component.
+- De categorie-dropdown in `FilterBar.vue` is een eigen component (geen native `<select>`), omdat hij open moet blijven na elke klik zodat meerdere categorieën achter elkaar gekozen kunnen worden. De outside-click detectie gebruikt `event.composedPath()` i.p.v. `.contains()`, omdat de aangeklikte optie meteen uit de DOM verdwijnt (categorie niet meer in `availableCategories`) vóórdat het click-event `document` bereikt.
 
 ### Tests
 - Testbestanden staan in een `__tests__/` map naast het bestand dat ze testen (bijv. `composables/__tests__/useExpenses.spec.ts`), niet als `*.test.ts` naast de bron.
