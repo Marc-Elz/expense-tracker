@@ -1,16 +1,16 @@
 <template>
-  <div v-if="open" class="backdrop" @click.self="emit('cancel')">
-    <div class="modal">
-      <p>{{ message }}</p>
-      <div class="actions">
-        <button type="button" class="btn-secondary" @click="emit('cancel')">Cancel</button>
-        <button type="button" class="btn-danger" @click="emit('confirm')">Confirm</button>
-      </div>
+  <Modal :open="open" @cancel="emit('cancel')">
+    <p>{{ message }}</p>
+    <div class="actions">
+      <button type="button" class="btn-secondary" @click="emit('cancel')">Cancel</button>
+      <button type="button" class="btn-danger" @click="emit('confirm')">Confirm</button>
     </div>
-  </div>
+  </Modal>
 </template>
 
 <script setup lang="ts">
+import Modal from './Modal.vue'
+
 defineProps<{
   open: boolean
   message: string
@@ -23,26 +23,7 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.modal {
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  padding: var(--spacing-4);
-  max-width: 360px;
-  width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal p {
+p {
   margin: 0 0 var(--spacing-3);
 }
 

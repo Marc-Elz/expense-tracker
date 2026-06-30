@@ -47,7 +47,8 @@ expense-tracker/
         │   ├── ExpenseList.vue       — props: expenses, hasAnyExpenses — emits: edit, delete
         │   ├── ExpenseItem.vue       — props: expense — emits: edit, delete
         │   ├── ExpenseForm.vue       — props: expense? — emits: submit, cancel
-        │   └── ConfirmModal.vue      — props: open, message — emits: confirm, cancel
+        │   ├── Modal.vue             — generieke overlay-wrapper — props: open — emits: cancel — slot voor content
+        │   └── ConfirmModal.vue      — props: open, message — emits: confirm, cancel — gebruikt Modal.vue intern
         ├── ExpenseTracker.vue    ← orchestrator: gebruikt composables, geeft props door
         └── App.vue               — importeert alleen ExpenseTracker.vue
 ```
@@ -59,6 +60,7 @@ expense-tracker/
 - Composables mogen andere composables aanroepen. `useFilters` roept `useExpenses()` aan om de singleton-expenses te lezen zonder die via `ExpenseTracker` door te geven.
 - `src/types/index.ts` bevat **uitsluitend domaintypes** (`Expense`, `Category`, `Filters`, `SortField`, `SortOrder`). UI-types horen hier niet thuis.
 - UI-types die gedeeld worden tussen een composable en de bijbehorende component (bijv. `FormErrors`, `FormField`, `OnBlurFn`) worden geëxporteerd vanuit het composable, niet vanuit `src/types/index.ts` en niet inline in de component. De component importeert alleen de types, niet de composable-functie zelf.
+- `Modal.vue` is een generieke, dumb overlay-wrapper (slot-based: backdrop + gecentreerde box, props `open`, emit `cancel` bij click buiten de modal). `ConfirmModal.vue` gebruikt `Modal.vue` intern voor de overlay en voegt alleen het message + Cancel/Confirm-gedrag toe. De create/edit form-modal in `ExpenseTracker.vue` wrapt `ExpenseForm` ook in `Modal.vue`, zonder een apart `FormModal.vue` component.
 
 ### Tests
 - Testbestanden staan in een `__tests__/` map naast het bestand dat ze testen (bijv. `composables/__tests__/useExpenses.spec.ts`), niet als `*.test.ts` naast de bron.
@@ -70,11 +72,11 @@ expense-tracker/
 - **localStorage fout / corrupt**: try/catch bij lezen én schrijven; toon toast, val terug op lege array
 - **QuotaExceededError**: vang op bij schrijven; toon foutmelding, wijziging niet doorgevoerd
 - **Negatief/nul bedrag**: geblokkeerd door validatie vóór opslaan
-- **Gelijktijdig editen**: slechts één form actief tegelijk; open edit sluit vorige
+- **Gelijktijdig editen**: niet mogelijk — de full-screen backdrop van `Modal.vue` blokkeert klikken op de onderliggende lijst zolang de form-modal open is, dus een tweede Edit-aanvraag kan niet ontstaan via de UI
 
-## Routing
+## Create & Edit Modal
 
-Vue Router met drie routes: `/` (lijst), `/create` (aanmaken), `/edit/:id` (bewerken). Create en Edit krijgen elk een eigen pagina zodat het form niet inline op de lijstpagina staat. `ExpenseForm` wordt als component hergebruikt op beide pagina's. `App.vue` rendert alleen `<RouterView>`.
+Create en Edit gebruiken een modal-overlay in plaats van losse routes of een permanent inline form op de lijstpagina — geen `vue-router`. Een "Toevoegen"-knop opent de modal in create mode (leeg form); de Edit-knop op een `ExpenseItem` opent dezelfde modal in edit mode (vooraf ingevuld via `populateForm`). `ExpenseForm` blijft een ongewijzigde dumb component en wordt binnen `Modal.vue` gerenderd. Submit (succesvol) of cancel (knop of klik buiten de modal) sluit de modal en reset het form.
 
 ## UX Rules
 - **Save-knop** disabled zolang form invalid of ongewijzigd (edit mode)

@@ -86,12 +86,12 @@
 
 ---
 
-## Fase 7: Routing — Create & Edit op eigen pagina
+## Fase 7: Create & Edit in Modal
 
-- [ ] **7.1** Installeer `vue-router` in `app/`, maak `src/router/index.ts` aan met drie routes: `/` (lijstpagina), `/create` (aanmaken) en `/edit/:id` (bewerken)
-- [ ] **7.2** Vervang de inhoud van `App.vue` door `<RouterView>`, maak `src/pages/HomePage.vue` (lijst + filter + dashboard + "Toevoegen"-knop die naar `/create` navigeert) en verwijder het inline form uit deze pagina
-- [ ] **7.3** Maak `src/pages/CreatePage.vue`: rendert `ExpenseForm` zonder vooraf gevulde waarden, roept `addExpense` aan bij submit en navigeert daarna naar `/`, annuleren navigeert terug naar `/`
-- [ ] **7.4** Maak `src/pages/EditPage.vue`: laadt expense op basis van `:id` uit de route via `useExpenses`, vult `ExpenseForm` via `populateForm`, roept `updateExpense` aan bij submit en navigeert naar `/`; onbekend id redirect naar `/`
-- [ ] **7.5** Verwijder `editingId`, `editingExpense`, `handleEdit` en de inline `ExpenseForm` uit de voormalige `ExpenseTracker.vue`/`HomePage.vue`, en verwijder de `edit`-emit koppeling van `ExpenseList`
+- [x] **7.1** Extraheer generieke `Modal.vue` uit `ConfirmModal.vue`: backdrop + gecentreerde box als slot-wrapper — props: `open` — emit: `cancel` bij click buiten de modal
+- [x] **7.2** Refactor `ConfirmModal.vue` om `Modal.vue` te gebruiken voor de overlay; gedrag (message, Cancel/Confirm-knoppen, emits) blijft ongewijzigd
+- [x] **7.3** Voeg "Toevoegen"-knop toe aan `ExpenseTracker.vue` en een `isFormOpen` ref; de knop opent de form-modal in create mode (leeg form, geen `editingExpense`)
+- [x] **7.4** Verplaats de inline `ExpenseForm` in `ExpenseTracker.vue` naar binnen `Modal.vue` (`:open="isFormOpen"`); `handleEdit` zet `isFormOpen` naar `true` naast de bestaande `populateForm`-aanroep
+- [x] **7.5** Zorg dat succesvolle submit én cancel `isFormOpen` op `false` zetten (naast het bestaande `resetForm`/`formKey`-gedrag)
 
-> Testbaar: `/` toont lijst zonder form, "Toevoegen" navigeert naar `/create`, opslaan keert terug met nieuwe expense, Edit-knop navigeert naar `/edit/:id` met gevuld form, opslaan keert terug met bijgewerkte expense, annuleren keert altijd terug zonder wijziging, directe URL naar onbekend id redirect naar `/`
+> Testbaar: lijstpagina toont geen permanent zichtbaar form meer · "Toevoegen" opent een lege form-modal · Edit-knop opent de modal met vooraf ingevuld form · submit en cancel sluiten de modal

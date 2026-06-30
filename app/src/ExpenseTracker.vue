@@ -3,15 +3,18 @@
     <Toast :message="storageError" @dismiss="clearStorageError" />
     <h1 class="page-title">Expense Tracker</h1>
     <SummaryDashboard :total="total" :category-totals="categoryTotals" />
-    <ExpenseForm
-      :key="formKey"
-      :expense="editingExpense"
-      :errors="errors"
-      :on-blur="handleBlur"
-      :disabled="saveDisabled"
-      @submit="handleFormSubmit"
-      @cancel="handleCancel"
-    />
+    <Modal :open="isFormOpen" @cancel="handleCancel">
+      <ExpenseForm
+        :key="formKey"
+        :expense="editingExpense"
+        :errors="errors"
+        :on-blur="handleBlur"
+        :disabled="saveDisabled"
+        @submit="handleFormSubmit"
+        @cancel="handleCancel"
+      />
+    </Modal>
+    <button type="button" class="btn-primary" @click="handleAddNew">Uitgave toevoegen</button>
     <FilterBar :filters="filters" @update:filters="handleFiltersUpdate" />
     <ExpenseList
       :expenses="filteredExpenses"
@@ -40,6 +43,7 @@ import ExpenseList from './components/ExpenseList.vue'
 import FilterBar from './components/FilterBar.vue'
 import SummaryDashboard from './components/SummaryDashboard.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
+import Modal from './components/Modal.vue'
 import Toast from './components/Toast.vue'
 
 const { expenses, addExpense, updateExpense, deleteExpense, storageError, clearStorageError } =
@@ -53,6 +57,7 @@ const editingExpense = computed(() =>
 
 const formKey = ref(0)
 const pendingDeleteId = ref<string | null>(null)
+const isFormOpen = ref(false)
 
 const total = computed(() => filteredExpenses.value.reduce((sum, e) => sum + e.amount, 0))
 
@@ -86,8 +91,15 @@ function handleBlur(field: 'description' | 'amount' | 'category' | 'date', value
   validateField(field)
 }
 
+function handleAddNew() {
+  resetForm()
+  formKey.value++
+  isFormOpen.value = true
+}
+
 function handleEdit(expense: Expense) {
   populateForm(expense)
+  isFormOpen.value = true
 }
 
 function handleFormSubmit(data: Omit<Expense, 'id' | 'createdAt'>) {
@@ -98,6 +110,7 @@ function handleFormSubmit(data: Omit<Expense, 'id' | 'createdAt'>) {
   }
   resetForm()
   formKey.value++
+  isFormOpen.value = false
 }
 
 function handleFiltersUpdate(newFilters: Filters) {
@@ -120,6 +133,7 @@ function handleCancelDelete() {
 function handleCancel() {
   resetForm()
   formKey.value++
+  isFormOpen.value = false
 }
 </script>
 
@@ -136,5 +150,18 @@ function handleCancel() {
 .page-title {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
 }
 </style>
