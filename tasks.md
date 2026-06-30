@@ -65,8 +65,8 @@
 - [x] **5.2b** Koppel `useExpenseForm` aan `ExpenseForm` in `ExpenseTracker`: geef `errors` door als prop, `handleBlur(field, value)` als `onBlur`-callback (synct `form.value[field]` en roept `validateField` aan)
 - [x] **5.3** Disable Save-knop als form invalid of (in edit mode) ongewijzigd — via `disabled` prop
 - [x] **5.4** Toon toast-foutmelding bij localStorage schrijffout (gewone fout én `QuotaExceededError`)
-- [ ] **5.5** Toon lege staat in `ExpenseList` met call-to-action als `expenses` prop leeg is
-- [ ] **5.6** Test `useExpenseForm`: validatieregels per veld (leeg, te lang, bedrag ≤ 0, toekomstige datum), `resetForm`, `populateForm`
+- [x] **5.5** Toon lege staat in `ExpenseList` met call-to-action als `expenses` prop leeg is
+- [x] **5.6** Test `useExpenseForm`: validatieregels per veld (leeg, te lang, bedrag ≤ 0, toekomstige datum), `resetForm`, `populateForm`
 
 > Testbaar: submit met leeg form toont errors, Save correct disabled, toast verschijnt bij geforceerde storage-fout, `npm run test` slaagt voor 5.6
 

@@ -42,7 +42,7 @@ expense-tracker/
         ├── components/
         │   ├── SummaryDashboard.vue  — props: total, categoryTotals
         │   ├── FilterBar.vue         — props: filters — emits: update:filters
-        │   ├── ExpenseList.vue       — props: expenses — emits: edit, delete
+        │   ├── ExpenseList.vue       — props: expenses, hasAnyExpenses — emits: edit, delete
         │   ├── ExpenseItem.vue       — props: expense — emits: edit, delete
         │   ├── ExpenseForm.vue       — props: expense? — emits: submit, cancel
         │   └── ConfirmModal.vue      — props: open, message — emits: confirm, cancel
