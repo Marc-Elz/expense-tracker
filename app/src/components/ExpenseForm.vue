@@ -48,6 +48,7 @@
         v-model="form.date"
         type="date"
         :class="{ invalid: errors.date }"
+        @change="onBlur('date', form.date)"
         @blur="onBlur('date', form.date)"
       />
       <span v-if="errors.date" class="error">{{ errors.date }}</span>
