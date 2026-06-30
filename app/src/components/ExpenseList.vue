@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p v-if="expenses.length === 0">Geen uitgaven gevonden. Voeg je eerste uitgave toe!</p>
+    <p v-if="expenses.length === 0 && !hasAnyExpenses">
+      Nog geen uitgaven. Voeg je eerste uitgave toe!
+    </p>
+    <p v-else-if="expenses.length === 0">Geen uitgaven gevonden voor deze filter.</p>
 
     <ul v-else>
       <ExpenseItem
@@ -20,6 +23,7 @@ import ExpenseItem from './ExpenseItem.vue'
 
 defineProps<{
   expenses: readonly Expense[]
+  hasAnyExpenses: boolean
 }>()
 
 const emit = defineEmits<{

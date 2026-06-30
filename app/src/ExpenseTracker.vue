@@ -12,7 +12,12 @@
       @cancel="handleCancel"
     />
     <FilterBar :filters="filters" @update:filters="handleFiltersUpdate" />
-    <ExpenseList :expenses="filteredExpenses" @edit="handleEdit" @delete="handleDeleteRequest" />
+    <ExpenseList
+      :expenses="filteredExpenses"
+      :has-any-expenses="expenses.length > 0"
+      @edit="handleEdit"
+      @delete="handleDeleteRequest"
+    />
     <ConfirmModal
       :open="pendingDeleteId !== null"
       message="Weet je zeker dat je deze uitgave wilt verwijderen?"
