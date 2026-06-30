@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="page">
     <Toast :message="storageError" @dismiss="clearStorageError" />
+    <h1 class="page-title">Expense Tracker</h1>
     <SummaryDashboard :total="total" :category-totals="categoryTotals" />
     <ExpenseForm
       :key="formKey"
@@ -121,3 +122,19 @@ function handleCancel() {
   formKey.value++
 }
 </script>
+
+<style scoped>
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.page-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+</style>
