@@ -33,6 +33,7 @@
         id="category"
         v-model="form.category"
         :class="{ invalid: errors.category }"
+        @change="onBlur('category', form.category)"
         @blur="onBlur('category', form.category)"
       >
         <option v-for="cat in CATEGORIES" :key="cat" :value="cat">{{ cat }}</option>
