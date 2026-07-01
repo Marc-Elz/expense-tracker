@@ -6,7 +6,6 @@
         id="description"
         v-model="form.description"
         type="text"
-        maxlength="100"
         :class="{ invalid: errors.description }"
         @blur="onBlur('description', form.description)"
       />
