@@ -105,3 +105,4 @@
   - Bugfix: in `SummaryDashboard.vue` overschreef de specifiekere `.breakdown li`-selector de `.accent-*`-kleur, waardoor de rand onzichtbaar bleef; opgelost door de accent-selectors te nesten (`.breakdown li.accent-food` enz.)
 - [x] **V.3** Vervang de "+ Categorie toevoegen"-select in `FilterBar.vue` door een filter-icoonknop die een dropdown met platte tekstopties opent
   - Bugfix: outside-click detectie sloot de dropdown direct na het kiezen van een categorie, omdat de aangeklikte optie al uit de DOM verwijderd was vóór het click-event `document` bereikte; opgelost door `event.composedPath()` te gebruiken in plaats van `.contains()`
+- [x] **V.4** Bugfix: `maxlength="100"` op het input-veld blokkeerde de `val.length > 100` validatie in `useExpenseForm`
